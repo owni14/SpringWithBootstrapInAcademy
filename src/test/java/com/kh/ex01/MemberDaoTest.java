@@ -28,7 +28,7 @@ public class MemberDaoTest {
 	
 	@Test
 	public void testInsertMember() {
-		MemberVo memberVo = new MemberVo("user02", "1234", "유저02", "user02@email.com");
+		MemberVo memberVo = new MemberVo("user01", "1234", "유저01", "user01@email.com");
 		memberDao.insertMember(memberVo);
 	}
 	

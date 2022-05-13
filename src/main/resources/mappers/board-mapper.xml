@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.kh.ex01.mappers.board">
+ 	<insert id="create">
+ 		insert into tbl_board
+ 			(bno, title, content, writer)
+ 		values(seq_board_bno.nextval, #{title}, #{content, jdbcType=VARCHAR}, #{writer})
+ 	</insert>
+ 	
+ 	<!-- 글 조회 (1개) -->
+ 	<select id="read" resultType="BoardVo">
+ 		select * from tbl_board
+ 		where bno = #{bno}
+ 	</select>
+ 	
+ 	<update id="update">
+ 		update tbl_board set
+ 			title = #{title},
+ 			content = #{content, jdbcType=VARCHAR},
+ 			writer = #{writer}
+ 		where bno = #{bno}
+ 	</update>
+ 	
+ 	<delete id="delete">
+ 		delete from tbl_board
+ 		where bno = #{bno}
+ 	</delete>
+ 	
+ 	<select id="list" resultType="BoardVo">
+ 		select * from tbl_board
+ 		order by regdate desc
+ 	</select>
+ </mapper>

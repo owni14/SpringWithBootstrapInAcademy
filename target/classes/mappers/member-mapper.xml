@@ -5,37 +5,28 @@
   
  <mapper namespace="com.kh.ex01.mappers.member">
  	<select id="getTime" resultType="string">
- 		select sysdate from dual
+		select sysdate from dual
  	</select>
  	
  	<insert id="insertMember">
- 		insert into tbl_member
- 			(userid, userpw, username, email)
- 		values 
- 			(#{userid}, #{userpw}, #{username}, #{email})
+ 		insert into tbl_member (userid, userpwd, username, email)
+ 			values(#{userid}, #{userpwd}, #{username}, #{email})
  	</insert>
  	
- 	<select id="getMemberList" resultType="com.kh.ex01.vo.MemberVo">
- 		select * from tbl_member
- 		order by userid
+ 	<select id="getMemberList" resultType="MemberVo">
+ 		select * from tbl_member order by userid
  	</select>
  	
- 	<select id="getMemberById" resultType="com.kh.ex01.vo.MemberVo">
- 		select * from tbl_member
- 		where userid = #{userid}
+ 	<select id="getMemberById" resultType="MemberVo">
+ 		select * from tbl_member where userid = #{userid}
  	</select>
  	
  	<update id="modifyMember">
- 		update tbl_member set
- 		userpw = #{userpw},
- 		username = #{username},
- 		email = #{email}, 
- 		updatedate = sysdate
- 		where userid = #{userid}
+ 		update tbl_member set userpwd = #{userpwd}, username = #{username}, email = #{email}, updatedate = sysdate
+ 				where userid = #{userid}
  	</update>
  	
  	<delete id="deleteMember">
- 		delete from tbl_member
- 		where userid = #{userid}
+ 		delete from tbl_member where userid = #{userid}
  	</delete>
  </mapper>

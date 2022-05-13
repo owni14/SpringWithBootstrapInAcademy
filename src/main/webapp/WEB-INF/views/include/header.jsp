@@ -688,3 +688,5 @@
 
 
 		<!-- // header -->
+		
+		 <div class="content-wrapper">
