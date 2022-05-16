@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.ex01.dao.BoardDao;
 import com.kh.ex01.vo.BoardVo;
+import com.kh.ex01.vo.PagingDto;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -39,8 +40,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVo> list() {
-		List<BoardVo> list = boardDao.list();
+	public List<BoardVo> list(PagingDto pagingDto) {
+		List<BoardVo> list = boardDao.list(pagingDto);
 		return list;
 	}
 

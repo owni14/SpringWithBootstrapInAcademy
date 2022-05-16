@@ -4,6 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="com.kh.ex01.mappers.board">
+ 
+ 	<!-- 글 등록 -->
  	<insert id="create">
  		insert into tbl_board
  			(bno, title, content, writer)
@@ -16,6 +18,7 @@
  		where bno = #{bno}
  	</select>
  	
+ 	<!-- 글 수정 -->
  	<update id="update">
  		update tbl_board set
  			title = #{title},
@@ -24,13 +27,18 @@
  		where bno = #{bno}
  	</update>
  	
+ 	<!-- 글 삭제 -->
  	<delete id="delete">
  		delete from tbl_board
  		where bno = #{bno}
  	</delete>
  	
+ 	<!-- 글 조회(전체) -->
  	<select id="list" resultType="BoardVo">
- 		select * from tbl_board
- 		order by regdate desc
+ 		select * from
+ 			(select rownum rnum, a.* from 
+ 				(select * from tbl_board
+ 				 order by bno desc) a)
+ 		where rnum between #{startRow} and #{endRow}
  	</select>
  </mapper>

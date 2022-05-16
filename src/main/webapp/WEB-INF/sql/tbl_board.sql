@@ -10,3 +10,10 @@ create table tbl_board(
 
 -- 글번호용 시퀀스
 create sequence seq_board_bno;
+
+-- 데이터 전체 삭제 --
+truncate table tbl_board;
+
+-- 시퀀스 새로 생성 --
+drop sequence seq_board_bno;
+create sequence seq_board_bno;

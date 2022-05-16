@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.ex01.dao.BoardDao;
 import com.kh.ex01.vo.BoardVo;
+import com.kh.ex01.vo.PagingDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/**/*.xml")
@@ -19,8 +20,24 @@ public class BoardDaoTest {
 	private BoardDao boardDao;
 	
 	@Test
+	public void testPagingDto() {
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPerPage(5);
+		pagingDto.setPage(3);
+		System.out.println("pagingDto:" + pagingDto);
+	}
+	
+	@Test
+	public void testInsert500() {
+		for (int i = 0; i <= 500; i++) {
+			BoardVo boardVo = new BoardVo("제목-"+ i, "내용-" + i, "user01");
+			boardDao.create(boardVo);
+		}
+	}
+	
+	@Test
 	public void testCreate() {
-		BoardVo boardVo = new BoardVo("제목-2", null, "user01");
+		BoardVo boardVo = new BoardVo("제목-2", "내용-2", "user02");
 		boolean result = boardDao.create(boardVo);
 		System.out.println("result:" + result);
 	}
@@ -49,7 +66,9 @@ public class BoardDaoTest {
 	
 	@Test
 	public void testList() {
-		List<BoardVo> list = boardDao.list();
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setPage(1);
+		List<BoardVo> list = boardDao.list(pagingDto);
 		for (BoardVo boardVo : list) {
 			System.out.println(boardVo);
 		}

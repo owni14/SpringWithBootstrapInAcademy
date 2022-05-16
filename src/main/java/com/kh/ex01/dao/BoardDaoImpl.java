@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.ex01.vo.BoardVo;
+import com.kh.ex01.vo.PagingDto;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -49,8 +50,8 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public List<BoardVo> list() {
-		List<BoardVo> list = sqlSession.selectList(NAMESPACE + "list");
+	public List<BoardVo> list(PagingDto pagingDto) {
+		List<BoardVo> list = sqlSession.selectList(NAMESPACE + "list", pagingDto);
 		return list;
 	}
 
