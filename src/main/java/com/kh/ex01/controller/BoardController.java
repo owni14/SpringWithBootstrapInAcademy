@@ -38,10 +38,12 @@ public class BoardController {
 	
 	// 조회
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(int bno, Model model) {
+	public String read(int bno, Model model, PagingDto pagingDto) {
 		System.out.println("BoardController, read, bno: " + bno);
+		System.out.println("BoardController, read, pagingDto: " + pagingDto);
 		BoardVo boardVo = boardService.read(bno);
 		model.addAttribute("boardVo", boardVo);
+		model.addAttribute("pagingDto", pagingDto);
 		return "board/read";
 	}
 	
@@ -53,18 +55,24 @@ public class BoardController {
 	
 	// 수정 처리
 	@RequestMapping(value = "/updateRun", method = RequestMethod.POST)
-	public String updateRun(BoardVo boardVo, RedirectAttributes rttr) {
+	public String updateRun(BoardVo boardVo, RedirectAttributes rttr, PagingDto pagingDto) {
 		System.out.println("BoardController, updateRun, boardVo:" + boardVo);
+		System.out.println("BoardController, updateRun, pagingDto:" + pagingDto);
 		boolean result = boardService.update(boardVo);
 		rttr.addFlashAttribute("update_result", result);
-		return "redirect:/board/read?bno=" + boardVo.getBno();
+		rttr.addAttribute("page", pagingDto.getPage());
+		rttr.addAttribute("perPage", pagingDto.getPerPage());
+		rttr.addAttribute("bno", boardVo.getBno());
+		return "redirect:/board/read";
 	}
 	
 	// 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String delete(int bno, RedirectAttributes rttr) {
+	public String delete(int bno, RedirectAttributes rttr, PagingDto pagingDto) {
 		boolean result = boardService.delete(bno);
 		rttr.addFlashAttribute("delete_result", result);
+		rttr.addAttribute("page", pagingDto.getPage());
+		rttr.addAttribute("perPage", pagingDto.getPerPage());
 		return "redirect:/board/list";
 	}
 	
@@ -72,9 +80,11 @@ public class BoardController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, int page) {
 		PagingDto pagingDto = new PagingDto();
+		pagingDto.setCount(boardService.getCount());
 		pagingDto.setPage(page);
 		List<BoardVo> boardList = boardService.list(pagingDto);
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("pagingDto", pagingDto);
 		return "board/list";
 	}
 }

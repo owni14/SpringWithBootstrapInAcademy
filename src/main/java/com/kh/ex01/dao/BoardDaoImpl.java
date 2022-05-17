@@ -55,4 +55,10 @@ public class BoardDaoImpl implements BoardDao{
 		return list;
 	}
 
+	@Override
+	public int getCount() {
+		int count = sqlSession.selectOne(NAMESPACE + "getCount");
+		return count;
+	}
+
 }

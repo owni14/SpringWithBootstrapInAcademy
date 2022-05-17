@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 
 <style>
@@ -32,11 +31,18 @@ tr.tr_list:hover {
 		$(".tr_list").click(function() {
 			// $(this) : 여러개의 tr 중 클릭된 tr
 			var bno = $(this).attr("data-bno");
-			location.href = "/board/read?bno=" + bno;
+// 			location.href = "/board/read?bno=" + bno;
+			var frmPaging = $("#frmPaging");
+			frmPaging.find("input[name=bno]").val(bno);
+			frmPaging.attr("action", "/board/read");
+			frmPaging.attr("method", "get");
+			frmPaging.submit();
 		});
 		console.log("create_result:" + create_result);
 	});
 </script>
+
+<%@ include file="/WEB-INF/views/include/paging.jsp" %>
 
 <div class="container-fluid">
 	<div class="row">
@@ -80,8 +86,10 @@ tr.tr_list:hover {
 		<div class="col-md-12">
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#">이전</a></li>
-					<c:forEach begin="1" end="10" var="i">
+					<c:if test="${pagingDto.startPage != 1}">
+						<li class="page-item"><a class="page-link" href="/board/list?page=${pagingDto.startPage - 1}">이전</a></li>
+					</c:if>
+					<c:forEach begin="${pagingDto.startPage}" end="${pagingDto.endPage}" var="i">
 						<li
 							<c:choose>
 							<c:when test="${i == param.page}">
@@ -93,7 +101,9 @@ tr.tr_list:hover {
 						</c:choose>
 						><a class="page-link" href="/board/list?page=${i}">${i}</a></li>
 					</c:forEach>
-					<li class="page-item"><a class="page-link" href="#">다음</a></li>
+					<c:if test="${pagingDto.endPage != pagingDto.totalPage}">
+						<li class="page-item"><a class="page-link" href="/board/list?page=${pagingDto.endPage + 1}">다음</a></li>
+					</c:if>
 				</ul>
 			</nav>
 		</div>

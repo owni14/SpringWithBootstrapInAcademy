@@ -45,4 +45,10 @@ public class BoardServiceImpl implements BoardService{
 		return list;
 	}
 
+	@Override
+	public int getCount() {
+		int count = boardDao.getCount();
+		return count;
+	}
+
 }

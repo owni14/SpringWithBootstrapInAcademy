@@ -10,6 +10,7 @@ $(document).ready(function() {
 	} else if (update_result == "false") {
 		alert("수정 실패");
 	}
+	
 	// 수정 버튼
 	$("#btnUpdate").click(function() {
 		// readonly 해제
@@ -17,15 +18,26 @@ $(document).ready(function() {
 		$(this).fadeOut("slow");
 		$("#btnUpdateRun").fadeIn("slow");
 	});
+	
+	$("#btnDelete").click(function(e) {
+		e.preventDefault();
+		var bno = $(this).attr("href");
+		var frmPaging = $("#frmPaging");
+		frmPaging.find("input[name=bno]").val(bno);
+		frmPaging.attr("action", "/board/delete");
+		frmPaging.attr("method", "get");
+		frmPaging.submit();
+	});
 });
 </script>
+<%@ include file="/WEB-INF/views/include/paging.jsp" %>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="jumbotron">
 				<h2>글 내용 보기</h2>
 				<p>
-					<a class="btn btn-primary btn-large" href="/board/list">글 목록</a>
+					<a class="btn btn-primary btn-large" href="/board/list?page=${param.page}&perPage=${param.perPage}">글 목록</a>
 				</p>
 			</div>
 		</div>
@@ -34,6 +46,8 @@ $(document).ready(function() {
 		<div class="col-md-12">
 			<form role="form" action="/board/updateRun" method="post">
 			<input type="hidden" name="bno" value="${boardVo.bno}">
+			<input type="hidden" name="page" value="${pagingDto.page}">
+			<input type="hidden" name="perPage" value="${pagingDto.perPage}">
 				<div class="form-group">
 					<label for="title"> 제목 </label> 
 					<input type="text" 
@@ -54,7 +68,7 @@ $(document).ready(function() {
 					id="btnUpdate">수정</button>
 				<button type="submit" class="btn btn-success"
 					id="btnUpdateRun" style="display: none;">수정완료</button>
-				<a class="btn btn-danger" href="/board/delete?bno=${boardVo.bno}">삭제</a>
+				<a class="btn btn-danger" href="${boardVo.bno}" id="btnDelete">삭제</a>
 			</form>
 		</div>
 	</div>

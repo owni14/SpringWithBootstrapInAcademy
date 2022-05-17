@@ -73,4 +73,19 @@ public class BoardDaoTest {
 			System.out.println(boardVo);
 		}
 	}
+	
+	@Test
+	public void testPaging() {
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setCount(501); // 501개의 게시글
+		pagingDto.setPage(51); // 50 페이지
+		System.out.println("pagingDto:" + pagingDto);
+	}
+	
+	@Test
+	public void testGetCount() {
+		int count = boardDao.getCount();
+		System.out.println("count:" + count);
+	}
+	
 }

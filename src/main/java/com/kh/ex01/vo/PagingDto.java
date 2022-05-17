@@ -11,6 +11,7 @@ public class PagingDto {
 	private int count;
 	private int startPage;
 	private int endPage;
+	private final int PAGE_BLOCK = 10;
 	
 	public PagingDto() {
 		super();
@@ -28,6 +29,23 @@ public class PagingDto {
 		// 3		21			30
 		this.endRow = this.page * this.perPage;
 		this.startRow = this.endRow - (this.perPage - 1);
+		
+		// page		startPage	endPage
+		// 1		1			10
+		// 10		1			10
+		// 20		11			20
+		
+		// count : 501 -> totalPage : 51
+		// count : 510 -> totalPage : 51
+		// count : 511 -> totalPage : 52
+		totalPage = (int) Math.ceil((double)count / perPage);
+		
+		// Math.ceil() - 올림 1.x -> 2
+		startPage = ((page - 1) / PAGE_BLOCK) * PAGE_BLOCK + 1;
+		endPage = startPage + (PAGE_BLOCK - 1);
+		if (endPage > totalPage) {
+			endPage = totalPage;
+		}
 	}
 
 	public int getStartRow() {
