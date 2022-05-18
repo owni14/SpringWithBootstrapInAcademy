@@ -4,6 +4,7 @@
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 <script>
 $(document).ready(function() {
+	var frmPaging = $("#frmPaging");
 	var update_result = "${update_result}";
 	if (update_result == "true") {
 		alert("수정 완료");
@@ -17,7 +18,7 @@ $(document).ready(function() {
 		$("*[readonly]").attr("readonly", false);
 		$(this).fadeOut("slow");
 		$("#btnUpdateRun").fadeIn("slow");
-	});
+	}); // $("#btnUpdate").click
 	
 	$("#btnDelete").click(function(e) {
 		e.preventDefault();
@@ -27,7 +28,15 @@ $(document).ready(function() {
 		frmPaging.attr("action", "/board/delete");
 		frmPaging.attr("method", "get");
 		frmPaging.submit();
+	}); // $("#btnDelete").click
+	
+	$("#a_list").click(function(e) {
+		e.preventDefault();
+		frmPaging.find("input[name=bno]").val("${boardVo.bno}");
+		frmPaging.attr("action", "/board/list");
+		frmPaging.submit();
 	});
+	
 });
 </script>
 <%@ include file="/WEB-INF/views/include/paging.jsp" %>
@@ -37,7 +46,7 @@ $(document).ready(function() {
 			<div class="jumbotron">
 				<h2>글 내용 보기</h2>
 				<p>
-					<a class="btn btn-primary btn-large" href="/board/list?page=${param.page}&perPage=${param.perPage}">글 목록</a>
+					<a class="btn btn-primary btn-large" id="a_list" href="#">글 목록</a>
 				</p>
 			</div>
 		</div>
@@ -48,6 +57,8 @@ $(document).ready(function() {
 			<input type="hidden" name="bno" value="${boardVo.bno}">
 			<input type="hidden" name="page" value="${pagingDto.page}">
 			<input type="hidden" name="perPage" value="${pagingDto.perPage}">
+			<input type="hidden" name="searchType" value="${pagingDto.searchType}">
+			<input type="hidden" name="keyword" value="${pagingDto.keyword}">
 				<div class="form-group">
 					<label for="title"> 제목 </label> 
 					<input type="text" 
@@ -69,6 +80,7 @@ $(document).ready(function() {
 				<button type="submit" class="btn btn-success"
 					id="btnUpdateRun" style="display: none;">수정완료</button>
 				<a class="btn btn-danger" href="${boardVo.bno}" id="btnDelete">삭제</a>
+				<a class="btn btn-warning" href="/board/replyForm?bno=${boardVo.bno}">답글</a>
 			</form>
 		</div>
 	</div>

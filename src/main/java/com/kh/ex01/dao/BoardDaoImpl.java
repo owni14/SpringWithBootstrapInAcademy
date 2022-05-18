@@ -56,9 +56,23 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public int getCount() {
-		int count = sqlSession.selectOne(NAMESPACE + "getCount");
+	public int getCount(PagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getCount", pagingDto);
 		return count;
+	}
+
+	@Override
+	public boolean insertReply(BoardVo boardVo) {
+		int count = sqlSession.insert(NAMESPACE + "insertReply", boardVo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void updateReSeq(BoardVo boardVo) {
+		sqlSession.update(NAMESPACE + "updateReSeq", boardVo);
 	}
 
 }

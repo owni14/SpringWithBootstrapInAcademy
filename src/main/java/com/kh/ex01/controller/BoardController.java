@@ -60,9 +60,12 @@ public class BoardController {
 		System.out.println("BoardController, updateRun, pagingDto:" + pagingDto);
 		boolean result = boardService.update(boardVo);
 		rttr.addFlashAttribute("update_result", result);
+//		rttr.addAttribute("pagingDto", pagingDto);
 		rttr.addAttribute("page", pagingDto.getPage());
 		rttr.addAttribute("perPage", pagingDto.getPerPage());
 		rttr.addAttribute("bno", boardVo.getBno());
+		rttr.addAttribute("searchType", pagingDto.getSearchType());
+		rttr.addAttribute("keyword", pagingDto.getKeyword());
 		return "redirect:/board/read";
 	}
 	
@@ -73,18 +76,36 @@ public class BoardController {
 		rttr.addFlashAttribute("delete_result", result);
 		rttr.addAttribute("page", pagingDto.getPage());
 		rttr.addAttribute("perPage", pagingDto.getPerPage());
+		rttr.addAttribute("searchType", pagingDto.getSearchType());
+		rttr.addAttribute("keyword", pagingDto.getKeyword());
 		return "redirect:/board/list";
 	}
 	
 	// 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, int page) {
-		PagingDto pagingDto = new PagingDto();
-		pagingDto.setCount(boardService.getCount());
-		pagingDto.setPage(page);
+	public String list(Model model, PagingDto pagingDto) {
+		pagingDto.setCount(boardService.getCount(pagingDto));
+		pagingDto.setPage(pagingDto.getPage());
 		List<BoardVo> boardList = boardService.list(pagingDto);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "board/list";
 	}
+	
+	// 답글
+	@RequestMapping(value = "/replyForm", method = RequestMethod.GET)
+	public String replyForm(Model model, int bno) {
+		BoardVo boardVo = boardService.read(bno);
+		model.addAttribute("boardVo", boardVo);
+		return "board/reply_form";
+	}
+	
+	// 답글처리
+	@RequestMapping(value = "/replyRun", method = RequestMethod.POST)
+	public String replyRun(BoardVo boardVo, RedirectAttributes rttr) {
+		boolean result = boardService.insertReply(boardVo);
+		rttr.addFlashAttribute("reply_result", result);
+		return "redirect:/board/list";
+	}
+	
 }

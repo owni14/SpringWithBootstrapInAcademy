@@ -11,5 +11,6 @@ public interface BoardService {
 	public boolean update(BoardVo boardVo); // 글수정(Update)
 	public boolean delete(int bno); // 글삭제(Delete)
 	public List<BoardVo> list(PagingDto pagingDto); // 글목록(Read)
-	public int getCount();
+	public int getCount(PagingDto pagingDto);
+	public boolean insertReply(BoardVo boardVo); // 답글 작성
 }

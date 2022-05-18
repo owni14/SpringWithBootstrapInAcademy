@@ -11,5 +11,7 @@ public interface BoardDao {
 	public boolean update(BoardVo boardVo); // 글수정(Update)
 	public boolean delete(int bno); // 글삭제(Delete)
 	public List<BoardVo> list(PagingDto pagingDto); // 글목록(Read)
-	public int getCount(); // 전체 게시글의 수 구하기
+	public int getCount(PagingDto pagingDto); // 전체 게시글의 수 구하기
+	public boolean insertReply(BoardVo boardVo); // 답글쓰기
+	public void updateReSeq(BoardVo boardVo); // 답글 순서 조정
 }

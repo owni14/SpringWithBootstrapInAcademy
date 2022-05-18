@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.ex01.dao.BoardDao;
 import com.kh.ex01.vo.BoardVo;
@@ -46,9 +47,17 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int getCount() {
-		int count = boardDao.getCount();
+	public int getCount(PagingDto pagingDto) {
+		int count = boardDao.getCount(pagingDto);
 		return count;
+	}
+
+	@Override
+	@Transactional
+	public boolean insertReply(BoardVo boardVo) {
+		boardDao.updateReSeq(boardVo);
+		boolean result = boardDao.insertReply(boardVo);
+		return result;
 	}
 
 }

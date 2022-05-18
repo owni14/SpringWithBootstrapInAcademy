@@ -9,6 +9,9 @@ public class BoardVo {
 	private String writer;
 	private Date regdate;
 	private int viewcnt;
+	private int re_group;
+	private int re_level;
+	private int re_seq;
 	
 	public BoardVo() {
 		super();
@@ -29,6 +32,20 @@ public class BoardVo {
 		this.writer = writer;
 		this.regdate = regdate;
 		this.viewcnt = viewcnt;
+	}
+	
+	public BoardVo(int bno, String title, String content, String writer, Date regdate, int viewcnt, int re_group,
+			int re_level, int re_seq) {
+		super();
+		this.bno = bno;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.regdate = regdate;
+		this.viewcnt = viewcnt;
+		this.re_group = re_group;
+		this.re_level = re_level;
+		this.re_seq = re_seq;
 	}
 
 	public int getBno() {
@@ -80,11 +97,36 @@ public class BoardVo {
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
 	}
+	
+	public int getRe_group() {
+		return re_group;
+	}
+
+	public void setRe_group(int re_group) {
+		this.re_group = re_group;
+	}
+
+	public int getRe_level() {
+		return re_level;
+	}
+
+	public void setRe_level(int re_level) {
+		this.re_level = re_level;
+	}
+
+	public int getRe_seq() {
+		return re_seq;
+	}
+
+	public void setRe_seq(int re_seq) {
+		this.re_seq = re_seq;
+	}
 
 	@Override
 	public String toString() {
 		return "BoardVo [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate="
-				+ regdate + ", viewcnt=" + viewcnt + "]";
+				+ regdate + ", viewcnt=" + viewcnt + ", re_group=" + re_group + ", re_level=" + re_level + ", re_seq="
+				+ re_seq + "]";
 	}
 	
 }

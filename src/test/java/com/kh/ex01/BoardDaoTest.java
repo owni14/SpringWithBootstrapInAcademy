@@ -84,8 +84,20 @@ public class BoardDaoTest {
 	
 	@Test
 	public void testGetCount() {
-		int count = boardDao.getCount();
+		int count = boardDao.getCount(null);
 		System.out.println("count:" + count);
+	}
+	
+	@Test
+	public void testSearch() {
+		PagingDto pagingDto = new PagingDto();
+		pagingDto.setSearchType("t");
+		pagingDto.setKeyword("3");
+		int count = boardDao.getCount(pagingDto);
+		System.out.println("count:" + count);
+		pagingDto.setCount(count);
+		pagingDto.setPage(1);
+		System.out.println("pagingDto:" + pagingDto);
 	}
 	
 }
