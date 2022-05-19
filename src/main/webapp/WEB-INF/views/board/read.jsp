@@ -35,7 +35,41 @@ $(document).ready(function() {
 		frmPaging.find("input[name=bno]").val("${boardVo.bno}");
 		frmPaging.attr("action", "/board/list");
 		frmPaging.submit();
-	});
+	}); // $("#a_list").click
+	
+	$("#btnCommentInsert").click(function() {
+		var content = $("#c_content").val();
+		var userid = $("#c_userid").val();
+		var bno = "${boardVo.bno}";
+		var sData = {
+			"content" : content,
+			"userid"  : userid,
+			"bno"	  : bno
+		};
+		var url = "/comment/insertComment";
+		$.post(url, sData, function(rData){
+			console.log("rData:" +rData);
+		}); // $.post
+	}); // $("#btnCommentInsert").click
+	
+	function getCommentList() {
+		var bno = "${boardVo.bno}";
+		var url = "/comment/commentList/" + bno;
+		$.get(url, function(rData) {
+			$.each(rData, function() {
+				console.log(rData);
+				var tr = $("#table_clone tr").clone();
+				var tds = tr.find("td");
+				tds.eq(0).text(this.cno);
+				tds.eq(1).text(this.content);
+				tds.eq(2).text(this.userid);
+				tds.eq(3).text(this.regdate);
+				$("#tabl_comment_list").append(tr);
+			});
+		}); // $.get
+	} // function getCommentList() 
+	
+	getCommentList();
 	
 });
 </script>
@@ -84,5 +118,38 @@ $(document).ready(function() {
 			</form>
 		</div>
 	</div>
+	<!-- 댓글(Comment) -->
+	<div class="row" style="margin-top:30px">
+		<div class="col-md-9" >
+			<input type="text" class="form-control" placeholder="댓글을 입력해주세요." id="c_content">
+		</div>
+		<div class="col-md-2">
+			<input type="text" class="form-control" placeholder="아이디를 입력하세요." id="c_userid">
+		</div>
+		<div class="col-md-1">
+			<button type="button" class="btn btn-sm btn-primary" id="btnCommentInsert">완료</button>
+		</div>
+	</div>		
+	<div class="row">
+		<div class="col-md-12" style="margin-top: 30px">
+			<table style="display: none;" id="table_clone">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			<table class="table" id="tabl_comment_list">
+				<tr>
+					<td>#</td>
+					<td>댓글내용</td>
+					<td>작성자</td>
+					<td>작성일</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
 </div>
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
