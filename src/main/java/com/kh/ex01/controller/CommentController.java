@@ -36,5 +36,18 @@ public class CommentController {
 		return commentList;
 	}
 	
+	@RequestMapping(value = "/deleteComment/{cno}", method = RequestMethod.GET)
+	public String deleteComment(@PathVariable("cno") int cno) {
+		boolean result = commentService.deleteComment(cno);
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/updateComment", method = RequestMethod.POST)
+	public String updateComment(CommentVo commentVo) {
+		System.out.println(commentVo);
+		boolean result = commentService.updateComment(commentVo);
+		System.out.println("result:" + result);
+		return String.valueOf(result);
+	}
 	
 }
