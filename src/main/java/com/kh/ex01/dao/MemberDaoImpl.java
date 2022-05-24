@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.ex01.vo.MemberVo;
 
-@Repository("impl")
+@Repository
 public class MemberDaoImpl implements MemberDao{
 	private final String NAMESPACE = "com.kh.ex01.mappers.member.";
 	

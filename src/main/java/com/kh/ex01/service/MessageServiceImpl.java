@@ -1,5 +1,7 @@
 package com.kh.ex01.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +45,12 @@ public class MessageServiceImpl implements MessageService{
 			return messageVo;
 		}
 		return null;
+	}
+
+	@Override
+	public List<MessageVo> listMessage(String userid, String mType) {
+		List<MessageVo> messageList = messageDao.listMessage(userid, mType);
+		return messageList;
 	}
 
 }

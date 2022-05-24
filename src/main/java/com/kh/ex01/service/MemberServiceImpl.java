@@ -1,20 +1,18 @@
-package com.kh.ex01.dao;
+package com.kh.ex01.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.kh.ex01.dao.MemberDao;
 import com.kh.ex01.vo.MemberVo;
+@Service
+public class MemberServiceImpl implements MemberService{
 
-@Repository("impl2")
-public class MemberDaoImpl2 implements MemberDao{
-
-	@Override
-	public String getTime() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	@Autowired
+	private MemberDao memberDao;
+	
 	@Override
 	public void insertMember(MemberVo memberVo) {
 		// TODO Auto-generated method stub
@@ -29,8 +27,8 @@ public class MemberDaoImpl2 implements MemberDao{
 
 	@Override
 	public MemberVo getMemberById(String userid) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberVo memberVo = memberDao.getMemberById(userid);
+		return memberVo;
 	}
 
 	@Override

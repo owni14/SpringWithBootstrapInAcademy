@@ -19,7 +19,7 @@ public class MessageServiceTest {
 	
 	@Test
 	public void testSendMessage() {
-		MessageVo messageVo = new MessageVo("user01", "user02", "Hello");
+		MessageVo messageVo = new MessageVo("user02", "user01", "Hello2");
 		boolean result = messageService.sendMessage(messageVo);
 		System.out.println("result :" + result);
 	}

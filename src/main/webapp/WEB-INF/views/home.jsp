@@ -4,7 +4,7 @@
 
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
  
-    <h1>Welcome</h1>
+    <h1>Welcome - ${loginVo.userid}(${loginVo.username})</h1>
   
 <%@ include file="/WEB-INF/views/include/footer.jsp" %> 
 

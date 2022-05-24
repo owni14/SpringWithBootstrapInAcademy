@@ -63,12 +63,12 @@ public class MessageVo {
 		this.message = message;
 	}
 
-	public Date getSendate() {
+	public Date getSenddate() {
 		return senddate;
 	}
 
-	public void setSendate(Date sendate) {
-		this.senddate = sendate;
+	public void setSenddate(Date senddate) {
+		this.senddate = senddate;
 	}
 
 	public Date getOpendate() {
@@ -82,7 +82,7 @@ public class MessageVo {
 	@Override
 	public String toString() {
 		return "MessageVo [mid=" + mid + ", sender=" + sender + ", receiver=" + receiver + ", message=" + message
-				+ ", sendate=" + senddate + ", opendate=" + opendate + "]";
+				+ ", senddate=" + senddate + ", opendate=" + opendate + "]";
 	}
 
 }
