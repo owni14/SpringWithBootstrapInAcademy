@@ -75,4 +75,9 @@ public class BoardDaoImpl implements BoardDao{
 		sqlSession.update(NAMESPACE + "updateReSeq", boardVo);
 	}
 
+	@Override
+	public void updateViewCnt(int bno) {
+		sqlSession.update(NAMESPACE + "updateViewCnt", bno);
+	}
+
 }

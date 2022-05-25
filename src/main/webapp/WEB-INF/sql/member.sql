@@ -7,3 +7,11 @@ create table tbl_member(
     regdate date default sysdate,
     updatedate date default sysdate
 );
+
+-- 포인트 칼럼 추가
+alter table tbl_member
+add m_point number default 0;
+
+-- 사진 칼럼 추가
+alter table tbl_member
+add m_pic varchar2(100);

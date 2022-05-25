@@ -10,4 +10,5 @@ public interface MemberService {
 	public MemberVo getMemberById(String userid); // 아이디 조회
 	public boolean modifyMember(MemberVo memberVo); // 회원 수정
 	public boolean deleteMember(String userid); // 회원 삭제
+	public MemberVo getMemberByIdAndPw(String userid, String userpw);
 }

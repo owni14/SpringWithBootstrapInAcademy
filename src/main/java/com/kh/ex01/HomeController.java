@@ -21,10 +21,12 @@ public class HomeController {
 	
 	// http://localhost/ex01/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session) {
-		String userid = "user01";
-		MemberVo loginVo = memberService.getMemberById(userid);
-		session.setAttribute("loginVo", loginVo);
+	public String home(/*HttpSession session*/) {
+		/*
+		 * String userid = "user01";
+		 * MemberVo loginVo = memberService.getMemberById(userid);
+		 * session.setAttribute("loginVo", loginVo);
+		 **/
 		return "home";
 	}
 	

@@ -15,7 +15,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public void insertMember(MemberVo memberVo) {
-		// TODO Auto-generated method stub
+		memberDao.insertMember(memberVo);
 		
 	}
 
@@ -41,6 +41,12 @@ public class MemberServiceImpl implements MemberService{
 	public boolean deleteMember(String userid) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public MemberVo getMemberByIdAndPw(String userid, String userpw) {
+		MemberVo memberVo = memberDao.getMemberByIdAndPw(userid, userpw);
+		return memberVo;
 	}
 
 }

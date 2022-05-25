@@ -81,6 +81,19 @@
 		    <version>4.1.7.RELEASE</version>
 		</dependency>
 		
+		<!-- commons-io -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>1.3.1</version>
+		</dependency>
+		
+		<!-- commons-fileupload -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.1</version>
+		</dependency>
 		
 	<!-- //따로 추가한 파일 -->
 	

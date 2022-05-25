@@ -14,4 +14,5 @@ public interface BoardDao {
 	public int getCount(PagingDto pagingDto); // 전체 게시글의 수 구하기
 	public boolean insertReply(BoardVo boardVo); // 답글쓰기
 	public void updateReSeq(BoardVo boardVo); // 답글 순서 조정
+	public void updateViewCnt(int bno); // 조회수 증가
 }

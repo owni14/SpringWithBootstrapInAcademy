@@ -36,7 +36,7 @@ $(document).ready(function() {
 		alert ("답글 작성 실패");
 	}
 		
-	$(".tr_list").click(function() {
+	$(".td_list").click(function() {
 		// $(this) : 여러개의 tr 중 클릭된 tr
 		var bno = $(this).attr("data-bno");
 // 		location.href = "/board/read?bno=" + bno;
@@ -152,10 +152,27 @@ $(document).ready(function() {
 				</thead>
 				<tbody>
 					<c:forEach items="${boardList}" var="boardVo">
-						<tr class="tr_list" data-bno="${boardVo.bno}">
+						<tr class="tr_list">
 							<td>${boardVo.bno}</td>
-							<td style="padding-left:${boardVo.re_level * 40}px">${boardVo.title}</td>
-							<td>${boardVo.writer}</td>
+							<td class="td_list" style="padding-left:${boardVo.re_level * 40}px"  data-bno="${boardVo.bno}">${boardVo.title}</td>
+							<td>
+							<c:choose>
+								<c:when test="${loginVo.userid == boardVo.writer}">
+									${boardVo.writer}
+								</c:when>
+								<c:otherwise>
+							
+								<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+									${boardVo.writer}
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									 <a class="dropdown-item disabled" href="#">메뉴</a> 
+									 <a class="dropdown-item" href="#">쪽지보내기</a> 
+									 <a class="dropdown-item" href="/member/getMemberById?userid=${boardVo.writer}">회원정보보기</a>
+								</div>
+								</c:otherwise>
+							</c:choose>
+							</td>
 							<td>${boardVo.regdate}</td>
 							<td>${boardVo.viewcnt}</td>
 						</tr>

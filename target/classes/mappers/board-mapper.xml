@@ -90,4 +90,11 @@
  		re_seq = re_seq + 1
  		where re_group = #{re_group} and re_seq &gt; #{re_seq}
  	</update>
+ 	
+ 	<!-- 조회수 증가 -->
+ 	<update id="updateViewCnt">
+ 		update tbl_board set
+ 			viewcnt = viewcnt + 1
+ 		where bno = #{bno}
+ 	</update>
  </mapper>
